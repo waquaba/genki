@@ -21,7 +21,6 @@
         }
 
         body {
-            /* 【編集】背景画像のファイル名 */
             background-image: url('background.png'); 
             background-size: cover;
             background-position: center center;
@@ -177,7 +176,7 @@
         p { color: #1c2d3d; line-height: 2.2; font-size: 1rem; }
         ul { list-style: none; padding: 0; }
         
-        /* 🆕 リスト並び用の共通リンクスタイル */
+        /* 一覧リストの並び */
         .item-list-wrapper { margin-top: 20px; }
         
         .clickable-link {
@@ -196,7 +195,7 @@
         .tree-category { font-weight: 700; color: #0d1b2a; font-size: 1.2rem; margin-top: 30px; margin-bottom: 10px; display: flex; align-items: center; }
         .tree-category::before { content: "◆"; color: #0000ff; margin-right: 10px; font-size: 0.9rem; }
 
-        /* 詳細表示の共通デザイン */
+        /* 詳細表示のデザイン */
         .detail-view { display: none; }
         .detail-view.active { display: block; }
 
@@ -249,8 +248,7 @@
             <h2>ようこそ</h2>
             <p>
                 お立ち寄りいただき、ありがとうございます。<br>
-                ここは、眩しく清潔な空港の片隅に設けられた、個人的な記録と記憶のための分室です。<br>
-                天井のタブからそれぞれのページへ、右下のボタンから背景に流れる音の制御が可能です。どうぞご自由にお過ごしください。
+                ここは、眩しく清潔な空港の片隅に設けられた、個人的な記録と記憶のための分室です。
             </p>
         </section>
 
@@ -264,8 +262,8 @@
             <div id="diary-list">
                 <h2>日記</h2>
                 <div class="item-list-wrapper">
-                    <div class="clickable-link" onclick="showDetail('diary', '2026.06.29', 'diary-0629')">2026.06.29 — 今日のお題</div>
-                    <div class="clickable-link" onclick="showDetail('diary', '2026.06.28', 'diary-0628')">2026.06.28 — 昨日の出来事</div>
+                    <div class="clickable-link" onclick="showDetail('diary', '2026.06.29', 'diary-0629')">2026年6月29日：空港のベンチにて</div>
+                    <div class="clickable-link" onclick="showDetail('diary', '2026.06.30', 'diary-0630')">2026年6月30日：明日の予定と音響メモ</div>
                 </div>
             </div>
 
@@ -278,7 +276,6 @@
         </section>
 
         <section id="miscellany" class="content-section">
-            
             <div id="miscellany-list">
                 <h2>雑記帳</h2>
                 <div class="item-list-wrapper">
@@ -297,7 +294,6 @@
                 <div id="miscellany-title-area" class="detail-title"></div>
                 <div id="miscellany-body-area" class="detail-content-text"></div>
             </div>
-
         </section>
 
         <section id="contact" class="content-section">
@@ -316,7 +312,6 @@
                     <textarea id="message" name="message" rows="5"></textarea>
                 </div>
                 <button type="submit" class="submit-btn">送信する</button>
-                
                 <div class="contact-disclaimer">
                     ※こちらのお問い合わせは形骸的なものであり、私にも届きません。お問い合わせたい心のうちがあれば、なんでもどうぞ。
                 </div>
@@ -326,8 +321,17 @@
     </div>
 
     <div style="display:none;">
-        <div id="data-diary-0629">ここに今日（6月29日）の日記の本文を記入します。<br>Enterではなく「&lt;br&gt;」で改行してくださいね。</div>
-        <div id="data-diary-0628">ここに昨日（6月28日）の日記の本文を記入します。</div>
+        <div id="data-diary-0629">
+            今日は一日、この新しく仕上がったホームページの調整をしていた。<br>
+            眩しくて清潔な空港の背景を眺めていると、本当にどこか遠くのターミナルに座っているような奇妙な静けさがある。<br><br>
+            明朝体の文字としっとりした白いすりガラスの組み合わせは、思った以上にノスタルジックで落ち着く空間になってくれた。これから少しずつ、数学のノートや音楽のアイデアをここに書き溜めていこうと思う。
+        </div>
+
+        <div id="data-diary-0630">
+            Ableton Liveを開いて、昨日録音した環境音のミキシング作業。<br>
+            ローカットを少し強めに入れて、中高域の透明感を強調するアプローチを試す。このサイトの背景の空気感に合うような、少し冷たくて綺麗なアンビエントトラックを作りたい。<br><br>
+            明日は久しぶりに長文の数学の考察（幾何学的なトピックか、それとも解析的なものか）を雑記帳の方にまとめてみる予定。
+        </div>
 
         <div id="data-music-01">対位法の美学についての本文。<br>バッハの楽曲に見る数学的構造について…。</div>
         <div id="data-music-02">音響合成についてのメモです。FM合成の金属的な響きについて。</div>
@@ -344,12 +348,10 @@
                 activeSection.classList.add('active');
                 window.location.hash = sectionId;
                 activeSection.scrollTop = 0; 
-                // タブ移動時は詳細画面を閉じてリストに戻す
                 if(sectionId === 'diary' || sectionId === 'miscellany') hideDetail(sectionId);
             }
         }
 
-        // 🆕 日記・雑記共通の詳細表示スクリプト
         function showDetail(type, title, dataId) {
             const listArea = document.getElementById(type + '-list');
             const detailArea = document.getElementById(type + '-detail');
@@ -366,7 +368,6 @@
             document.getElementById(type).scrollTop = 0;
         }
 
-        // 🆕 詳細を閉じるスクリプト
         function hideDetail(type) {
             const listArea = document.getElementById(type + '-list');
             const detailArea = document.getElementById(type + '-detail');
