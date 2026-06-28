@@ -50,6 +50,7 @@
             background: linear-gradient(to bottom, rgba(255,255,255,0.3), rgba(150,0,255,0.5));
         }
 
+        /* 磨りガラスデザイン：彩度の高い紫色トーン */
         .nav-box {
             background: rgba(140, 0, 255, 0.28) !important; 
             border: 1px solid rgba(200, 100, 255, 0.5) !important; 
@@ -64,6 +65,7 @@
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
+        /* タブ内の日本語：彩度高めの水色（明朝体） */
         .nav-box span {
             writing-mode: vertical-rl;
             text-combine-upright: digits 2;
@@ -126,38 +128,35 @@
             right: 35px;
             display: flex;
             flex-direction: column;
-            align-items: flex-end; /* 右寄せ */
+            align-items: flex-end; 
             z-index: 100;
         }
 
-        /* ミュージックボタン自体は wrapper 内に置くので固定位置を解除 */
         .tepra-music {
             position: relative;
         }
 
-        /* 🎵 修正：OtoLogicライセンス文言（小さく、下に配置） */
+        /* OtoLogicライセンス文言（小さく、下に配置） */
         .music-license {
             font-family: 'Shippori Mincho', serif;
-            font-size: 0.6rem; /* 🆕 さらに小さく（極小サイズ） */
+            font-size: 0.6rem; 
             color: #0d1b2a;
-            /* 🆕 下に配置するため背景を消し、マージンを調整 */
             background: none;
             border: none;
             backdrop-filter: none;
             -webkit-backdrop-filter: none;
-            margin-top: 6px; /* ボタンの下に少し隙間を空ける */
+            margin-top: 6px; 
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.5s ease;
             white-space: nowrap;
-            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5); /* 視認性確保のための薄い影 */
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5); 
         }
 
         /* 再生中（playing）のときだけライセンスを表示する */
         .music-wrapper.playing .music-license {
-            opacity: 0.7; /* 🆕 少し透過させて奥ゆかしく */
+            opacity: 0.7; 
         }
-
 
         .main-container {
             max-width: 680px;
@@ -242,4 +241,103 @@
         <div class="tepra-button tepra-music" id="musicBtn" onclick="toggleMusic()">
             <span>ミュージック</span>
         </div>
-        <div class="music-license">BGM: OtoLogic (CC BY 4.0)http://googleusercontent.com/image_generation_content/4
+        <div class="music-license">BGM: OtoLogic (CC BY 4.0)</div>
+    </div>
+
+    <div class="main-container">
+
+        <section id="home" class="content-section active">
+            <h2>ようこそ</h2>
+            <p>
+                お立ち寄りいただき、ありがとうございます。<br>
+                ここは、眩しく清潔な空港の片隅に設けられた、個人的な記録と記憶のための分室です。<br>
+                天井のタブからそれぞれのページへ、右下のボタンから背景に流れる音の制御が可能です。どうぞご自由にお過ごしください。
+            </p>
+        </section>
+
+        <section id="profile" class="content-section">
+            <h2>自己紹介</h2>
+            <p>
+                ここに簡単な自己紹介を書いてください。現在の所属、関心のあるテーマ、あるいは日々の活動についての短いテキストを置く場所です。
+            </p>
+        </section>
+
+        <section id="diary" class="content-section">
+            <h2>日記</h2>
+            <ul>
+                <li>
+                    <span style="font-size: 0.8rem; color: #556b7d; display: block; font-weight: bold;">2026.06.29</span>
+                    <a href="#">今日の日記のタイトル</a>
+                    <p style="margin: 5px 0 0 0; font-size: 0.95rem; color: #2c3e50;">ここへ日記の文章が入ります。</p>
+                </li>
+                </ul>
+        </section>
+
+        <section id="miscellany" class="content-section">
+            <h2>雑記帳</h2>
+            <ul>
+                <li><a href="#">思考の断片についてのノート</a></li>
+                <li><a href="#">いつか整理するかもしれない概念</a></li>
+            </ul>
+        </section>
+
+        <section id="contact" class="content-section">
+            <h2>お問い合わせ</h2>
+            <form action="https://formspree.io/f/xxxxxxxx" method="POST">
+                <div class="form-group">
+                    <label for="name">お名前</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">メールアドレス</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">メッセージ</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">送信する</button>
+            </form>
+        </section>
+
+    </div>
+
+    <script>
+        function switchSection(sectionId) {
+            const sections = document.querySelectorAll('.content-section');
+            sections.forEach(sec => { sec.classList.remove('active'); });
+            const activeSection = document.getElementById(sectionId);
+            if (activeSection) {
+                activeSection.classList.add('active');
+                window.location.hash = sectionId;
+            }
+        }
+
+        function toggleMusic() {
+            const audio = document.getElementById('bgm');
+            const btn = document.getElementById('musicBtn');
+            const wrapper = document.getElementById('musicWrapper');
+            
+            if (audio.paused) {
+                audio.play().catch(e => { console.log("Audio blocked."); });
+                btn.classList.add('playing');
+                wrapper.classList.add('playing');
+            } else {
+                audio.pause();
+                btn.classList.remove('playing');
+                wrapper.classList.remove('playing');
+            }
+        }
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            const hash = window.location.hash.replace('#', '');
+            if (hash && document.getElementById(hash)) {
+                switchSection(hash);
+            } else {
+                switchSection('home');
+            }
+        });
+    </script>
+
+</body>
+</html>
