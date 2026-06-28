@@ -88,4 +88,158 @@
         .tepra-button {
             position: fixed;
             background: #0000ff; 
-            border:
+            border: 2px solid #0000ff;
+            box-shadow: 3px 3px 0px #000; 
+            padding: 10px 20px;
+            text-decoration: none;
+            z-index: 100;
+            cursor: pointer;
+            transition: all 0.1s;
+        }
+
+        .tepra-button span {
+            font-family: 'Shippori Mincho', serif;
+            font-weight: 700;
+            color: #ffffff;
+            font-size: 1.1rem;
+            letter-spacing: 0.1em;
+            display: inline-block;
+        }
+
+        .tepra-button:hover {
+            transform: translate(-1px, -1px);
+            box-shadow: 4px 4px 0px #000;
+        }
+
+        .tepra-button:active, .tepra-button.playing {
+            background: #0000cc;
+            transform: translate(2px, 2px);
+            box-shadow: 0px 0px 0px #000;
+        }
+
+        .tepra-home { bottom: 35px; left: 35px; }
+        
+        /* 右下：ミュージックエリア（位置をまとめるためのラッパー） */
+        .music-wrapper {
+            position: fixed;
+            bottom: 35px;
+            right: 35px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end; /* 右寄せ */
+            z-index: 100;
+        }
+
+        /* ミュージックボタン自体は wrapper 内に置くので固定位置を解除 */
+        .tepra-music {
+            position: relative;
+        }
+
+        /* 🎵 修正：OtoLogicライセンス文言（小さく、下に配置） */
+        .music-license {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 0.6rem; /* 🆕 さらに小さく（極小サイズ） */
+            color: #0d1b2a;
+            /* 🆕 下に配置するため背景を消し、マージンを調整 */
+            background: none;
+            border: none;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            margin-top: 6px; /* ボタンの下に少し隙間を空ける */
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+            white-space: nowrap;
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5); /* 視認性確保のための薄い影 */
+        }
+
+        /* 再生中（playing）のときだけライセンスを表示する */
+        .music-wrapper.playing .music-license {
+            opacity: 0.7; /* 🆕 少し透過させて奥ゆかしく */
+        }
+
+
+        .main-container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding-top: 280px; 
+            padding-bottom: 120px;
+        }
+
+        .content-section {
+            background: rgba(255, 255, 255, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 50px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.04);
+            display: none; 
+        }
+
+        .content-section.active {
+            display: block !important;
+            animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            font-family: 'Shippori Mincho', serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: #0d1b2a;
+            border-bottom: 2px solid #0d1b2a;
+            padding-bottom: 10px;
+            margin-top: 0;
+            letter-spacing: 0.15em;
+        }
+
+        p { color: #1c2d3d; line-height: 2.2; font-size: 1rem; }
+        ul { list-style: none; padding: 0; }
+        li { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px dashed rgba(13,27,42,0.2); }
+        a { color: #0000ff; text-decoration: none; font-weight: bold; }
+        a:hover { text-decoration: underline; }
+
+        .form-group { margin-bottom: 25px; }
+        label { font-family: 'Shippori Mincho', serif; font-weight: 700; display: block; margin-bottom: 8px; font-size: 0.85rem; color: #0d1b2a; }
+        input, textarea {
+            width: 100%; padding: 12px; border: 1px solid rgba(13,27,42,0.2); 
+            background: rgba(255,255,255,0.7); font-family: 'Shippori Mincho', serif; box-sizing: border-box;
+        }
+        .submit-btn {
+            background: #0000ff; color: white; border: none; padding: 12px 30px; 
+            font-family: 'Shippori Mincho', serif; font-weight: 700; cursor: pointer; letter-spacing: 0.1em;
+            box-shadow: 3px 3px 0px #000;
+        }
+        .submit-btn:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0px #000; }
+    </style>
+</head>
+<body>
+
+    <audio id="bgm" src="bgm.mp3" loop></audio>
+
+    <nav class="ceiling-nav">
+        <div class="nav-item" onclick="switchSection('profile')">
+            <div class="nav-box"><span>自己紹介</span></div>
+        </div>
+        <div class="nav-item" onclick="switchSection('diary')">
+            <div class="nav-box"><span>日記</span></div>
+        </div>
+        <div class="nav-item" onclick="switchSection('miscellany')">
+            <div class="nav-box"><span>雑記帳</span></div>
+        </div>
+    </nav>
+
+    <div class="tepra-button tepra-home" onclick="switchSection('home')">
+        <span>ホームに戻る</span>
+    </div>
+
+    <div class="music-wrapper" id="musicWrapper">
+        <div class="tepra-button tepra-music" id="musicBtn" onclick="toggleMusic()">
+            <span>ミュージック</span>
+        </div>
+        <div class="music-license">BGM: OtoLogic (CC BY 4.0)http://googleusercontent.com/image_generation_content/4
