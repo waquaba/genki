@@ -29,7 +29,7 @@
             position: relative;
         }
 
-        /* 天井の吊り下げタブ（4つが完全に同じ横幅で並ぶよう調整） */
+        /* 天井の吊り下げタブ */
         .ceiling-nav {
             position: fixed;
             top: 0;
@@ -64,7 +64,7 @@
             -webkit-backdrop-filter: blur(15px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05), inset 0 0 15px rgba(255, 255, 255, 0.2);
             padding: 30px 18px; 
-            width: 54px; /* これですべての文字が綺麗に同じサイズで収まります */
+            width: 54px; 
             text-align: center;
             display: block;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -119,7 +119,7 @@
         .music-wrapper.playing .music-license { opacity: 0.7; }
         .tepra-music.playing { background: #0000cc; transform: translate(2px, 2px); box-shadow: 0px 0px 0px #000; }
 
-        /* 中央コンテンツエリア：画面の定位置に完全に固定 */
+        /* 中央コンテンツエリア */
         .main-container {
             position: fixed;
             top: 260px; 
@@ -176,26 +176,27 @@
 
         p { color: #1c2d3d; line-height: 2.2; font-size: 1rem; }
         ul { list-style: none; padding: 0; }
-        li { margin-bottom: 25px; }
-
-        /* 雑記帳：ツリー構造のデザイン */
-        .tree-list { margin-top: 20px; }
-        .tree-category { font-weight: 700; color: #0d1b2a; font-size: 1.2rem; margin-top: 30px; margin-bottom: 10px; display: flex; align-items: center; }
-        .tree-category::before { content: "◆"; color: #0000ff; margin-right: 10px; font-size: 0.9rem; }
         
-        .tree-item-link {
+        /* 🆕 リスト並び用の共通リンクスタイル */
+        .item-list-wrapper { margin-top: 20px; }
+        
+        .clickable-link {
             color: #0000ff;
             text-decoration: none;
             font-weight: bold;
             cursor: pointer;
-            padding-left: 25px;
             display: block;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
+            padding-left: 15px;
             border-left: 1px solid rgba(0, 0, 255, 0.2);
         }
-        .tree-item-link:hover { text-decoration: underline; background: rgba(0, 0, 255, 0.03); }
+        .clickable-link:hover { text-decoration: underline; background: rgba(0, 0, 255, 0.03); }
 
-        /* 雑記帳：詳細表示 */
+        /* 雑記帳のカテゴリ見出し */
+        .tree-category { font-weight: 700; color: #0d1b2a; font-size: 1.2rem; margin-top: 30px; margin-bottom: 10px; display: flex; align-items: center; }
+        .tree-category::before { content: "◆"; color: #0000ff; margin-right: 10px; font-size: 0.9rem; }
+
+        /* 詳細表示の共通デザイン */
         .detail-view { display: none; }
         .detail-view.active { display: block; }
 
@@ -214,21 +215,14 @@
         .detail-title { font-size: 1.7rem; font-weight: 700; color: #0d1b2a; margin-bottom: 25px; }
         .detail-content-text { line-height: 2.2; color: #1c2d3d; }
 
-        /* お問い合わせフォーム */
+        /* フォーム */
         .form-group { margin-bottom: 25px; }
         label { font-weight: 700; display: block; margin-bottom: 8px; font-size: 0.85rem; color: #0d1b2a; }
         input, textarea { width: 100%; padding: 12px; border: 1px solid rgba(13,27,42,0.2); background: rgba(255,255,255,0.7); font-family: inherit; box-sizing: border-box; }
         .submit-btn { background: #0000ff; color: white; border: none; padding: 12px 30px; font-weight: 700; cursor: pointer; letter-spacing: 0.1em; box-shadow: 3px 3px 0px #000; }
         .submit-btn:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0px #000; }
         
-        .contact-disclaimer {
-            font-size: 0.8rem;
-            color: #556b7d;
-            line-height: 1.8;
-            margin-top: 25px;
-            border-top: 1px dashed rgba(13,27,42,0.15);
-            padding-top: 15px;
-        }
+        .contact-disclaimer { font-size: 0.8rem; color: #556b7d; line-height: 1.8; margin-top: 25px; border-top: 1px dashed rgba(13,27,42,0.15); padding-top: 15px; }
     </style>
 </head>
 <body>
@@ -266,29 +260,44 @@
         </section>
 
         <section id="diary" class="content-section">
-            <h2>日記</h2>
-            <p>日々の移ろいを記録します。</p>
+            
+            <div id="diary-list">
+                <h2>日記</h2>
+                <div class="item-list-wrapper">
+                    <div class="clickable-link" onclick="showDetail('diary', '2026.06.29', 'diary-0629')">2026.06.29 — 今日のお題</div>
+                    <div class="clickable-link" onclick="showDetail('diary', '2026.06.28', 'diary-0628')">2026.06.28 — 昨日の出来事</div>
+                </div>
+            </div>
+
+            <div id="diary-detail" class="detail-view">
+                <div class="back-button" onclick="hideDetail('diary')">日記一覧に戻る</div>
+                <div id="diary-title-area" class="detail-title"></div>
+                <div id="diary-body-area" class="detail-content-text"></div>
+            </div>
+
         </section>
 
         <section id="miscellany" class="content-section">
+            
             <div id="miscellany-list">
                 <h2>雑記帳</h2>
-                <div class="tree-list">
+                <div class="item-list-wrapper">
                     <div class="tree-category">音楽</div>
-                    <div class="tree-item-link" onclick="showMiscDetail('対位法の美学', 'music-01')">対位法の美学</div>
-                    <div class="tree-item-link" onclick="showMiscDetail('音響合成 of 記録', 'music-02')">音響合成の記録</div>
+                    <div class="clickable-link" onclick="showDetail('miscellany', '対位法の美学', 'music-01')">対位法の美学</div>
+                    <div class="clickable-link" onclick="showDetail('miscellany', '音響合成の記録', 'music-02')">音響合成の記録</div>
 
                     <div class="tree-category">数学</div>
-                    <div class="tree-item-link" onclick="showMiscDetail('素数についての考察', 'math-01')">素数についての考察</div>
-                    <div class="tree-item-link" onclick="showMiscDetail('リーマン予想の彼方', 'math-02')">リーマン予想の彼方</div>
+                    <div class="clickable-link" onclick="showDetail('miscellany', '素数についての考察', 'math-01')">素数についての考察</div>
+                    <div class="clickable-link" onclick="showDetail('miscellany', 'リーマン予想の彼方', 'math-02')">リーマン予想の彼方</div>
                 </div>
             </div>
 
             <div id="miscellany-detail" class="detail-view">
-                <div class="back-button" onclick="hideMiscDetail()">雑記帳に戻る</div>
-                <div id="detail-title-area" class="detail-title"></div>
-                <div id="detail-body-area" class="detail-content-text"></div>
+                <div class="back-button" onclick="hideDetail('miscellany')">雑記帳に戻る</div>
+                <div id="miscellany-title-area" class="detail-title"></div>
+                <div id="miscellany-body-area" class="detail-content-text"></div>
             </div>
+
         </section>
 
         <section id="contact" class="content-section">
@@ -317,7 +326,10 @@
     </div>
 
     <div style="display:none;">
-        <div id="data-music-01">対位法の美学についての本文をここに書きます。<br>バッハの楽曲に見る数学的構造について…。</div>
+        <div id="data-diary-0629">ここに今日（6月29日）の日記の本文を記入します。<br>Enterではなく「&lt;br&gt;」で改行してくださいね。</div>
+        <div id="data-diary-0628">ここに昨日（6月28日）の日記の本文を記入します。</div>
+
+        <div id="data-music-01">対位法の美学についての本文。<br>バッハの楽曲に見る数学的構造について…。</div>
         <div id="data-music-02">音響合成についてのメモです。FM合成の金属的な響きについて。</div>
         <div id="data-math-01">素数は1とその数自身でしか割り切れない孤独な数字です。</div>
         <div id="data-math-02">リーマン予想についての考察です。</div>
@@ -332,15 +344,17 @@
                 activeSection.classList.add('active');
                 window.location.hash = sectionId;
                 activeSection.scrollTop = 0; 
-                if(sectionId === 'miscellany') hideMiscDetail();
+                // タブ移動時は詳細画面を閉じてリストに戻す
+                if(sectionId === 'diary' || sectionId === 'miscellany') hideDetail(sectionId);
             }
         }
 
-        function showMiscDetail(title, dataId) {
-            const listArea = document.getElementById('miscellany-list');
-            const detailArea = document.getElementById('miscellany-detail');
-            const titleArea = document.getElementById('detail-title-area');
-            const bodyArea = document.getElementById('detail-body-area');
+        // 🆕 日記・雑記共通の詳細表示スクリプト
+        function showDetail(type, title, dataId) {
+            const listArea = document.getElementById(type + '-list');
+            const detailArea = document.getElementById(type + '-detail');
+            const titleArea = document.getElementById(type + '-title-area');
+            const bodyArea = document.getElementById(type + '-body-area');
             const content = document.getElementById('data-' + dataId).innerHTML;
 
             titleArea.innerText = title;
@@ -349,16 +363,19 @@
             listArea.style.display = 'none';
             detailArea.classList.add('active');
             
-            document.getElementById('miscellany').scrollTop = 0;
+            document.getElementById(type).scrollTop = 0;
         }
 
-        function hideMiscDetail() {
-            const listArea = document.getElementById('miscellany-list');
-            const detailArea = document.getElementById('miscellany-detail');
+        // 🆕 詳細を閉じるスクリプト
+        function hideDetail(type) {
+            const listArea = document.getElementById(type + '-list');
+            const detailArea = document.getElementById(type + '-detail');
 
-            detailArea.classList.remove('active');
-            listArea.style.display = 'block';
-            document.getElementById('miscellany').scrollTop = 0;
+            if(detailArea) detailArea.classList.remove('active');
+            if(listArea) listArea.style.display = 'block';
+            
+            const secContainer = document.getElementById(type);
+            if(secContainer) secContainer.scrollTop = 0;
         }
 
         function toggleMusic() {
