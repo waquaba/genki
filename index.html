@@ -29,7 +29,7 @@
             position: relative;
         }
 
-        /* 🆕 天井の吊り下げタブ（4つ並ぶのでgapを少し調整） */
+        /* 天井の吊り下げタブ（4つが完全に同じ横幅で並ぶよう調整） */
         .ceiling-nav {
             position: fixed;
             top: 0;
@@ -64,7 +64,7 @@
             -webkit-backdrop-filter: blur(15px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05), inset 0 0 15px rgba(255, 255, 255, 0.2);
             padding: 30px 18px; 
-            width: 54px; 
+            width: 54px; /* これですべての文字が綺麗に同じサイズで収まります */
             text-align: center;
             display: block;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
@@ -221,7 +221,6 @@
         .submit-btn { background: #0000ff; color: white; border: none; padding: 12px 30px; font-weight: 700; cursor: pointer; letter-spacing: 0.1em; box-shadow: 3px 3px 0px #000; }
         .submit-btn:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0px #000; }
         
-        /* 🆕 お問い合わせの形骸的メッセージ */
         .contact-disclaimer {
             font-size: 0.8rem;
             color: #556b7d;
@@ -240,7 +239,7 @@
         <div class="nav-item" onclick="switchSection('profile')"><div class="nav-box"><span>自己紹介</span></div></div>
         <div class="nav-item" onclick="switchSection('diary')"><div class="nav-box"><span>日記</span></div></div>
         <div class="nav-item" onclick="switchSection('miscellany')"><div class="nav-box"><span>雑記帳</span></div></div>
-        <div class="nav-item" onclick="switchSection('contact')"><div class="nav-box"><span>お問い合わせ</span></div></div>
+        <div class="nav-item" onclick="switchSection('contact')"><div class="nav-box"><span>窓口</span></div></div>
     </nav>
 
     <div class="tepra-button tepra-home" onclick="switchSection('home')"><span>ホームに戻る</span></div>
@@ -293,19 +292,19 @@
         </section>
 
         <section id="contact" class="content-section">
-            <h2>お問い合わせ</h2>
+            <h2>窓口</h2>
             <form action="#" method="POST">
                 <div class="form-group">
                     <label for="name">お名前</label>
-                    <input type="text" id="name" name="name" required>
+                    <input type="text" id="name" name="name">
                 </div>
                 <div class="form-group">
-                    <label for="email">メールアドレス</label>
-                    <input type="email" id="email" name="email" required>
+                    <label for="email">メールアドレス（空欄や適当でも可）</label>
+                    <input type="text" id="email" name="email">
                 </div>
                 <div class="form-group">
                     <label for="message">メッセージ</label>
-                    <textarea id="message" name="message" rows="5" required></textarea>
+                    <textarea id="message" name="message" rows="5"></textarea>
                 </div>
                 <button type="submit" class="submit-btn">送信する</button>
                 
