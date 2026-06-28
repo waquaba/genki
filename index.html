@@ -14,7 +14,7 @@
             margin: 0;
             padding: 0;
             font-family: 'Shippori Mincho', serif;
-            /* 【編集】背景画像のファイル名。もしjpgなら「background.jpg」に変える */
+            /* 【編集】背景画像のファイル名 */
             background-image: url('background.png'); 
             background-size: cover;
             background-position: center center;
@@ -79,7 +79,6 @@
             display: inline-block;
         }
 
-        /* ホバー時にガラスの透明度が上品に上がる */
         .nav-item:hover .nav-box {
             background: rgba(255, 255, 255, 0.38) !important;
             border: 1px solid rgba(255, 255, 255, 0.7) !important;
@@ -133,19 +132,15 @@
             z-index: 100;
         }
 
-        .tepra-music {
-            position: relative;
-        }
+        .tepra-music { position: relative; }
 
-        /* OtoLogicライセンス文言（小さく、下に配置） */
+        /* OtoLogicライセンス文言 */
         .music-license {
             font-family: 'Shippori Mincho', serif;
             font-size: 0.6rem; 
             color: #0d1b2a;
             background: none;
             border: none;
-            backdrop-filter: none;
-            -webkit-backdrop-filter: none;
             margin-top: 6px; 
             opacity: 0;
             pointer-events: none;
@@ -154,10 +149,7 @@
             text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5); 
         }
 
-        /* 再生中のときだけライセンスを表示 */
-        .music-wrapper.playing .music-license {
-            opacity: 0.7; 
-        }
+        .music-wrapper.playing .music-license { opacity: 0.7; }
 
         .main-container {
             max-width: 680px;
@@ -174,7 +166,7 @@
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.04);
-            display: none; 
+            display: none; /* 初期状態は非表示 */
         }
 
         .content-section.active {
@@ -200,10 +192,39 @@
 
         p { color: #1c2d3d; line-height: 2.2; font-size: 1rem; }
         ul { list-style: none; padding: 0; }
-        li { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px dashed rgba(13,27,42,0.2); }
-        a { color: #0000ff; text-decoration: none; font-weight: bold; }
-        a:hover { text-decoration: underline; }
+        li { margin-bottom: 25px; padding-bottom: 20px; border-bottom: 1px dashed rgba(13,27,42,0.15); }
 
+        /* クリック用のタイトル（青字） */
+        .toggle-title {
+            color: #0000ff;
+            text-decoration: none;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-block;
+        }
+        .toggle-title:hover { text-decoration: underline; }
+
+        /* 本文が入る透明なすりガラスボックス */
+        .scroll-box {
+            max-height: 0; 
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), margin-top 0.3s;
+            background: rgba(255, 255, 255, 0.3); 
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .scroll-box.open {
+            max-height: 220px; 
+            margin-top: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            overflow-y: auto; 
+            -webkit-overflow-scrolling: touch; 
+        }
+
+        .scroll-content { padding: 20px; }
+
+        /* フォーム */
         .form-group { margin-bottom: 25px; }
         label { font-family: 'Shippori Mincho', serif; font-weight: 700; display: block; margin-bottom: 8px; font-size: 0.85rem; color: #0d1b2a; }
         input, textarea {
@@ -267,52 +288,92 @@
             <h2>日記</h2>
             <ul>
                 <li>
-                    <span style="font-size: 0.8rem; color: #556b7d; display: block; font-weight: bold;">2026.06.29</span>
-                    <a href="#">今日の日記のタイトル</a>
-                    <p style="margin: 5px 0 0 0; font-size: 0.95rem; color: #2c3e50;">ここへ日記の文章が入ります。</p>
+                    <span style="font-size: 0.8rem; color: #556b7d; display: block; font-weight: bold; margin-bottom: 5px;">2026.06.29</span>
+                    <div class="toggle-title" onclick="toggleBox('diary-1')">今日の日記のタイトル</div>
+                    
+                    <div id="diary-1" class="scroll-box">
+                        <div class="scroll-content">
+                            <p style="margin:0;">
+                                ここに日記の本文が入ります。長文を入力してボッ亞ksδksjδkさjδkさjdかjdkさdjぁdjkぁjdkljskldj亞ldkじゃsldkじゃldkじゃslkdじゃ
+                                δかsjdかsjdkさjdkじゃskδじゃkdjかd<br>
+                                kじゃskだsdjかsd<br><br>
+                                kdjfaoejvfaepvajfirgjpwigjdpgjdpsjgofgkpsorotgktpohkoprktnodgknpskopjbodgbjprhbjhtpigjpgjrgpokpdofkgpodfgkhpthjpdgrgpdt
+                                
+                                クスの縦幅を超えると、透明なエリアの中だけを指でスワイプしたり、スクロールして読めるようになります。<br><br>
+                                テキストをたくさん書いても、サイト全体のレイアウトが縦に伸びすぎないので非常にスマートにまとまります。
+                            </p>
+                        </div>
+                    </div>
                 </li>
-                </ul>
+
+                <li>
+                    <span style="font-size: 0.8rem; color: #556b7d; display: block; font-weight: bold; margin-bottom: 5px;">2026.06.28</span>
+                    <div class="toggle-title" onclick="toggleBox('diary-2')">昨日の日記のタイトル</div>
+                    
+                    <div id="diary-2" class="scroll-box">
+                        <div class="scroll-content">
+                            <p style="margin:0;">ここに昨日の日記の本文を書きます。</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
         </section>
 
-<section id="miscellany" class="content-section">
-    <h2>雑記帳</h2>
-    <ul>
-        <li>
-            <div class="toggle-title" onclick="toggleBox('misc-1')">思考の断片についてのノート</div>
-            
-            <div id="misc-1" class="scroll-box">
-                <div class="scroll-content">
-                    <p style="margin:0;">
-                        ここを編集して、あなたの思考の断片やメモを自由に書き込むことができます。<br><br>
-                        あああ<br>
-                        yaaa
-                    </p>
-                </div>
-            </div>
-        </li>
+        <section id="miscellany" class="content-section">
+            <h2>雑記帳</h2>
+            <ul>
+                <li>
+                    <div class="toggle-title" onclick="toggleBox('misc-1')">思考 of 思考</div>
+                    <div id="misc-1" class="scroll-box">
+                        <div class="scroll-content">
+                            <p style="margin:0;">ここに雑記帳の長文メkdsacmndkafjkjesifjeasjisejfps<br>モを格納します。</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </section>
 
-        <li>
-            <div class="toggle-title" onclick="toggleBox('misc-2')">いつか整理するかもしれない概念</div>
-            <div id="misc-2" class="scroll-box">
-                <div class="scroll-content">
-                    <p style="margin:0;">ここにもう一つの雑記の本文を書くことができます。</p>
+        <section id="contact" class="content-section">
+            <h2>お問い合わせ</h2>
+            <form action="https://formspree.io/f/xxxxxxxx" method="POST">
+                <div class="form-group">
+                    <label for="name">お名前</label>
+                    <input type="text" id="name" name="name" required>
                 </div>
-            </div>
-        </li>
-    </ul>
-</section>
-
+                <div class="form-group">
+                    <label for="email">メールアドレス</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">メッセージ</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">送信する</button>
+            </form>
+        </section>
 
     </div>
 
     <script>
+        // 💡 修正箇所：ページ切り替えを司るスクリプト
         function switchSection(sectionId) {
             const sections = document.querySelectorAll('.content-section');
-            sections.forEach(sec => { sec.classList.remove('active'); });
+            sections.forEach(sec => {
+                sec.classList.remove('active');
+            });
             const activeSection = document.getElementById(sectionId);
             if (activeSection) {
                 activeSection.classList.add('active');
                 window.location.hash = sectionId;
+            }
+        }
+
+        function toggleBox(boxId) {
+            const box = document.getElementById(boxId);
+            if (box.classList.contains('open')) {
+                box.classList.remove('open');
+            } else {
+                box.classList.add('open');
             }
         }
 
