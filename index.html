@@ -25,16 +25,16 @@
         }
 
         /* ----------------------------------
-         * 天井から吊り下げられた3つのタブ（横並び）
+         * 天井から吊り下げられた3つのタブ（横並びで固定）
          * ---------------------------------- */
         .ceiling-nav {
             position: fixed;
             top: 0;
             left: 50%;
             transform: translateX(-50%);
-            display: flex;
+            display: flex; /* これで横並びになります */
             gap: 50px; 
-            z-index: 100;
+            z-index: 9999; /* 必ず最前面に表示 */
         }
 
         .nav-item {
@@ -49,16 +49,14 @@
             content: "";
             width: 1px;
             height: 60px; 
-            /* ワイヤーも少し紫と光に馴染むように調整 */
             background: linear-gradient(to bottom, rgba(255,255,255,0.3), rgba(150,0,255,0.5));
         }
 
         /* 磨りガラスデザイン：彩度の高い紫色トーン */
         .nav-box {
-            /* ぼかしテクスチャはそのままに、透明度のある鮮やかな紫に */
-            background: rgba(140, 0, 255, 0.28); 
-            border: 1px solid rgba(200, 100, 255, 0.5); 
-            border-top: 2px solid rgba(220, 150, 255, 0.7);
+            background: rgba(140, 0, 255, 0.28) !important; 
+            border: 1px solid rgba(200, 100, 255, 0.5) !important; 
+            border-top: 2px solid rgba(220, 150, 255, 0.7) !important;
             backdrop-filter: blur(15px); 
             -webkit-backdrop-filter: blur(15px);
             box-shadow: 0 20px 40px rgba(110, 0, 255, 0.15), 
@@ -66,6 +64,7 @@
             padding: 30px 18px; 
             width: 54px; 
             text-align: center;
+            display: block; /* 消えないように明示 */
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -76,4 +75,101 @@
             font-family: 'Shippori Mincho', serif;
             font-weight: 700;
             font-size: 1.4rem;
-            /*
+            color: #00f0ff; 
+            letter-spacing: 0.3em;
+            text-shadow: 0 0 8px rgba(0, 240, 255, 0.6), 0 1px 2px rgba(0, 0, 0, 0.3);
+            line-height: 1;
+            display: inline-block;
+        }
+
+        .nav-item:hover .nav-box {
+            background: rgba(150, 0, 255, 0.45) !important;
+            border: 1px solid rgba(220, 100, 255, 0.8) !important;
+            transform: translateY(6px); 
+            box-shadow: 0 15px 30px rgba(110, 0, 255, 0.3);
+        }
+
+
+        /* ----------------------------------
+         * 固定ボタンの共通テプラベース（ベタ青・明朝体・チープな黒影）
+         * ---------------------------------- */
+        .tepra-button {
+            position: fixed;
+            background: #0000ff; 
+            border: 2px solid #0000ff;
+            box-shadow: 3px 3px 0px #000; 
+            padding: 10px 20px;
+            text-decoration: none;
+            z-index: 100;
+            cursor: pointer;
+            transition: all 0.1s;
+        }
+
+        .tepra-button span {
+            font-family: 'Shippori Mincho', serif;
+            font-weight: 700;
+            color: #ffffff;
+            font-size: 1.1rem;
+            letter-spacing: 0.1em;
+            display: inline-block;
+        }
+
+        .tepra-button:hover {
+            transform: translate(-1px, -1px);
+            box-shadow: 4px 4px 0px #000;
+        }
+
+        .tepra-button:active, .tepra-button.playing {
+            background: #0000cc;
+            transform: translate(2px, 2px);
+            box-shadow: 0px 0px 0px #000;
+        }
+
+        /* 左下：ホームに戻る */
+        .tepra-home {
+            bottom: 35px;
+            left: 35px;
+        }
+
+        /* 右下：ミュージック */
+        .tepra-music {
+            bottom: 35px;
+            right: 35px;
+        }
+
+
+        /* ----------------------------------
+         * 中央：コンテンツ表示エリア
+         * ---------------------------------- */
+        .main-container {
+            max-width: 680px;
+            margin: 0 auto;
+            padding-top: 280px; 
+            padding-bottom: 120px;
+        }
+
+        /* 各ページの初期状態（非表示ルールを修正） */
+        .content-section {
+            background: rgba(255, 255, 255, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 50px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.04);
+            display: none; 
+        }
+
+        /* アクティブなページだけを表示 */
+        .content-section.active {
+            display: block !important;
+            animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h2 {
+            font-family: 'Shippori
