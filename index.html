@@ -48,7 +48,7 @@
             cursor: pointer;
         }
 
-        /* 💡 修正：吊り下げる糸の長さを1/3（60px → 20px）に短縮 */
+        /* 吊り下げる糸の長さを1/3（20px）に短縮 */
         .nav-item::before {
             content: "";
             width: 1px;
@@ -116,10 +116,10 @@
 
         .tepra-home { bottom: 35px; left: 35px; }
         
-        /* 💡 修正：ミュージックエリア全体を少し上に上げる（bottom: 35px → 55px） */
+        /* 💡 修正：ミュージックエリアを元の落ち着く位置（bottom: 35px）へリセット */
         .music-wrapper { 
             position: fixed; 
-            bottom: 55px; 
+            bottom: 35px; 
             right: 35px; 
             display: flex; 
             flex-direction: column; 
@@ -133,7 +133,7 @@
         .music-wrapper.playing .music-license { opacity: 0.7; }
         .tepra-music.playing { background: #0000cc; transform: translate(2px, 2px); box-shadow: 0px 0px 0px #000; }
 
-        /* 💡 修正：本文の欄を少し上に伸ばす（糸を削った分の半分にあたる35pxほど上に引き上げ top: 260px → 225px） */
+        /* 本文の欄を上に伸ばしたレイアウト（top: 225px） */
         .main-container {
             position: fixed;
             top: 225px; 
@@ -275,7 +275,6 @@
         </section>
 
         <section id="diary" class="content-section">
-            
             <div id="diary-list">
                 <h2>日記</h2>
                 <div class="item-list-wrapper">
@@ -289,7 +288,6 @@
                 <div id="diary-title-area" class="detail-title"></div>
                 <div id="diary-body-area" class="detail-content-text"></div>
             </div>
-
         </section>
 
         <section id="miscellany" class="content-section">
@@ -341,7 +339,7 @@
         <div id="data-diary-0629">
             今日は一日、この新しく仕上がったホームページの調整をしていた。<br>
             眩しくて清潔な空港の背景を眺めていると、本当にどこか遠くのターミナルに座っているような奇妙な静けさがある。<br><br>
-            明朝体の文字としっとりした白いすりガラスの組み合わせは、思った以上にノスタルジックで落ち着く空間になってくれた。これから少しずつ、数学のノートや音楽のアイデアをここに書き溜めていこうと思う。
+            明朝体の文字としっとりした白いすりガラス of 組み合わせは、思った以上にノスタルジックで落ち着く空間になってくれた。これから少しずつ、数学のノートや音楽のアイデアをここに書き溜めていこうと思う。
         </div>
         <div id="data-diary-0630">
             Ableton Liveを開いて、昨日録音した環境音のミキシング作業。<br>
