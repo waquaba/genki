@@ -9,22 +9,24 @@
     <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Shippori+Mincho:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* 全体のリセットと背景（清潔で眩しい空港のイメージ） */
+        /* 全体の設定と、アップロードした画像を背景に指定 */
         body {
             margin: 0;
             padding: 0;
             font-family: 'Shippori Mincho', serif;
-            background-color: #dceaf5; /* 眩しく清潔なライトブルー */
-            /* 擬似的に空港のパースや光を表現するグラデーション */
-            background: radial-gradient(circle at 50% 30%, #ffffff 0%, #edf5fa 50%, #c5daf0 100%);
-            background-attachment: fixed;
+            /* 先ほどアップロードした画像を背景に設定 */
+            background-image: url('background.png'); 
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed; /* スクロールしても背景を固定 */
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
         }
 
         /* ----------------------------------
-         * 天井から吊り下げられた3つのタブ（ずらさず横並び）
+         * 天井から吊り下げられた3つのタブ（横並び）
          * ---------------------------------- */
         .ceiling-nav {
             position: fixed;
@@ -32,7 +34,7 @@
             left: 50%;
             transform: translateX(-50%);
             display: flex;
-            gap: 40px; /* タブ同士の間隔 */
+            gap: 40px; 
             z-index: 100;
         }
 
@@ -44,25 +46,27 @@
             cursor: pointer;
         }
 
-        /* 吊り下げている細いワイヤー */
+        /* 吊り下げワイヤー */
         .nav-item::before {
             content: "";
             width: 1px;
-            height: 60px; /* ワイヤーの長さ */
-            background: linear-gradient(to bottom, #7a94a8, #b0c7d8);
+            height: 60px; 
+            background: linear-gradient(to bottom, rgba(255,255,255,0.4), rgba(255,255,255,0.8));
         }
 
-        /* 看板（タブ）本体：半透明で光を透過するアクリル風 */
+        /* 磨りガラス・透けたアクリル風のデザイン（グラスモフィズム） */
         .nav-box {
-            background: rgba(255, 255, 255, 0.85);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 15px 35px rgba(180, 200, 215, 0.4), 
-                        inset 0 0 15px rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.15); /* 背後が透ける薄い白 */
+            border: 1px solid rgba(255, 255, 255, 0.4); /* ガラスのエッジを表現 */
+            border-top: 2px solid rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px); /* 背景を綺麗にぼかす、ガラスの肝となる設定 */
+            -webkit-backdrop-filter: blur(12px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05), 
+                        inset 0 0 15px rgba(255, 255, 255, 0.2);
             padding: 25px 15px;
-            width: 45px; /* 縦長の看板 */
+            width: 45px; 
             text-align: center;
-            backdrop-filter: blur(5px);
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         /* 看板の中の美しい縦書き日本語 */
@@ -71,28 +75,30 @@
             text-combine-upright: digits 2;
             font-size: 1.3rem;
             font-weight: 700;
-            color: #1c2d3d;
+            color: #0d1b2a; /* 視認性の高い、少し深い紺黒 */
             letter-spacing: 0.3em;
+            text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
         }
 
-        /* ホバー（マウスを載せたとき）のチープで綺麗な光の反応 */
+        /* ホバー時にガラスの透明度と質感が変わる */
         .nav-item:hover .nav-box {
-            background: rgba(255, 255, 255, 0.98);
-            transform: translateY(4px); /* 少し自重で沈むような沈み込み */
-            box-shadow: 0 5px 15px rgba(150, 180, 200, 0.3);
+            background: rgba(255, 255, 255, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            transform: translateY(4px); 
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
         }
 
 
         /* ----------------------------------
-         * 右下：ベタ青・bit数を下げたテプラ風お問い合わせ
+         * 右下：ベタ青・テプラ風お問い合わせ
          * ---------------------------------- */
         .tepra-contact {
             position: fixed;
             bottom: 30px;
             right: 30px;
-            background: #0000ff; /* 完全にベタのRGBの青(B) */
+            background: #0000ff; 
             border: 2px solid #0000ff;
-            box-shadow: 2px 2px 0px #000; /* チープなオールドインターネット風の影 */
+            box-shadow: 2px 2px 0px #000; 
             padding: 12px 18px;
             text-decoration: none;
             z-index: 100;
@@ -100,7 +106,6 @@
             transition: transform 0.1s;
         }
 
-        /* テプラ内の文字：白くてbit数を下げた（ドット絵風）質感 */
         .tepra-contact span {
             font-family: 'DotGothic16', sans-serif;
             color: #ffffff;
@@ -121,27 +126,26 @@
 
 
         /* ----------------------------------
-         * 中央：コンテンツ表示エリア
+         * 中央：コンテンツ表示エリア（こちらも薄いガラス風に）
          * ---------------------------------- */
         .main-container {
             max-width: 650px;
             margin: 0 auto;
-            padding-top: 260px; /* 吊り下げタブと被らないように余白 */
+            padding-top: 260px; 
             padding-bottom: 100px;
         }
 
-        /* 各セクションのスタイル（標準状態では非表示、対象だけが滑らかに出現） */
         section {
-            background: rgba(255, 255, 255, 0.6);
-            border: 1px solid rgba(220, 230, 240, 0.8);
+            background: rgba(255, 255, 255, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.3);
             padding: 40px;
             margin-bottom: 40px;
-            backdrop-filter: blur(2px);
-            box-shadow: 0 10px 30px rgba(150, 170, 190, 0.1);
-            display: none; /* 初期状態は非表示 */
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            display: none; 
         }
 
-        /* アクティブなセクションだけを表示 */
         section:target, section.active {
             display: block;
             animation: fadeIn 0.6s ease both;
@@ -154,37 +158,36 @@
 
         h2 {
             font-size: 1.4rem;
-            color: #1c2d3d;
-            border-bottom: 1px solid #1c2d3d;
+            color: #0d1b2a;
+            border-bottom: 1px solid #0d1b2a;
             padding-bottom: 10px;
             margin-top: 0;
             letter-spacing: 0.15em;
         }
 
         p {
-            color: #2c3e50;
+            color: #1c2d3d;
             line-height: 2;
             font-size: 0.95rem;
         }
 
-        /* リストやフォームの簡易装飾 */
         ul { list-style: none; padding: 0; }
-        li { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px dashed #b0c7d8; }
+        li { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px dashed rgba(13,27,42,0.2); }
         a { color: #0000ff; text-decoration: none; }
         a:hover { text-decoration: underline; }
 
-        /* お問い合わせフォーム内の要素 */
         .form-group { margin-bottom: 20px; }
         label { display: block; margin-bottom: 5px; font-size: 0.9rem; }
         input, textarea {
-            width: 100%; padding: 10px; border: 1px solid #b0c7d8; 
-            background: rgba(255,255,255,0.8); font-family: inherit; box-sizing: border-box;
+            width: 100%; padding: 10px; border: 1px solid rgba(13,27,42,0.3); 
+            background: rgba(255,255,255,0.6); font-family: inherit; box-sizing: border-box;
         }
         .submit-btn {
-            background: #1c2d3d; color: white; border: none; padding: 10px 20px; 
-            font-family: inherit; cursor: pointer; letter-spacing: 0.1em;
+            background: #0000ff; color: white; border: none; padding: 10px 20px; 
+            font-family: 'DotGothic16', sans-serif; cursor: pointer; letter-spacing: 0.1em;
+            box-shadow: 2px 2px 0px #000;
         }
-        .submit-btn:hover { background: #34495e; }
+        .submit-btn:hover { transform: translate(-1px, -1px); box-shadow: 3px 3px 0px #000; }
     </style>
 </head>
 <body>
@@ -218,9 +221,9 @@
             <h2>日記</h2>
             <ul>
                 <li>
-                    <span style="font-size: 0.8rem; color: #7a94a8; display: block;">2026.06.29</span>
+                    <span style="font-size: 0.8rem; color: #556b7d; display: block;">2026.06.29</span>
                     <a href="#">今日の日記（仮）</a>
-                    <p style="margin: 5px 0 0 0; font-size: 0.9rem; color: #556b7d;">ここへ日記の文章が入ります。</p>
+                    <p style="margin: 5px 0 0 0; font-size: 0.9rem; color: #2c3e50;">ここへ日記の文章が入ります。</p>
                 </li>
             </ul>
         </section>
@@ -256,19 +259,16 @@
 
     <script>
         function switchSection(sectionId) {
-            // すべてのセクションから active クラスを取り除く
             const sections = document.querySelectorAll('main-container section, section');
             sections.forEach(sec => {
                 sec.classList.remove('active');
             });
-            // クリックされたセクションに active クラスを付与
             const activeSection = document.getElementById(sectionId);
             if (activeSection) {
                 activeSection.classList.add('active');
             }
         }
         
-        // ページ読み込み時にURLのハッシュ（#~）があれば自動切り替え
         window.addEventListener('DOMContentLoaded', () => {
             const hash = window.location.hash.replace('#', '');
             if (hash) {
