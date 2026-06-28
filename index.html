@@ -4,16 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>空港分室</title>
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
-        /* 全体の設定と背景画像 */
         body {
             margin: 0;
             padding: 0;
             font-family: 'Shippori Mincho', serif;
+            /* 【編集】背景画像のファイル名。もしjpgなら「background.jpg」に変える */
             background-image: url('background.png'); 
             background-size: cover;
             background-position: center center;
@@ -24,17 +25,14 @@
             position: relative;
         }
 
-        /* ----------------------------------
-         * 天井から吊り下げられた3つのタブ（横並びで固定）
-         * ---------------------------------- */
         .ceiling-nav {
             position: fixed;
             top: 0;
             left: 50%;
             transform: translateX(-50%);
-            display: flex; /* これで横並びになります */
+            display: flex;
             gap: 50px; 
-            z-index: 9999; /* 必ず最前面に表示 */
+            z-index: 9999;
         }
 
         .nav-item {
@@ -52,23 +50,20 @@
             background: linear-gradient(to bottom, rgba(255,255,255,0.3), rgba(150,0,255,0.5));
         }
 
-        /* 磨りガラスデザイン：彩度の高い紫色トーン */
         .nav-box {
             background: rgba(140, 0, 255, 0.28) !important; 
             border: 1px solid rgba(200, 100, 255, 0.5) !important; 
             border-top: 2px solid rgba(220, 150, 255, 0.7) !important;
             backdrop-filter: blur(15px); 
             -webkit-backdrop-filter: blur(15px);
-            box-shadow: 0 20px 40px rgba(110, 0, 255, 0.15), 
-                        inset 0 0 15px rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(110, 0, 255, 0.15), inset 0 0 15px rgba(255, 255, 255, 0.2);
             padding: 30px 18px; 
             width: 54px; 
             text-align: center;
-            display: block; /* 消えないように明示 */
+            display: block;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* タブ内の日本語：彩度高めの水色（明朝体） */
         .nav-box span {
             writing-mode: vertical-rl;
             text-combine-upright: digits 2;
@@ -89,245 +84,6 @@
             box-shadow: 0 15px 30px rgba(110, 0, 255, 0.3);
         }
 
-
-        /* ----------------------------------
-         * 固定ボタンの共通テプラベース（ベタ青・明朝体・チープな黒影）
-         * ---------------------------------- */
         .tepra-button {
             position: fixed;
-            background: #0000ff; 
-            border: 2px solid #0000ff;
-            box-shadow: 3px 3px 0px #000; 
-            padding: 10px 20px;
-            text-decoration: none;
-            z-index: 100;
-            cursor: pointer;
-            transition: all 0.1s;
-        }
-
-        .tepra-button span {
-            font-family: 'Shippori Mincho', serif;
-            font-weight: 700;
-            color: #ffffff;
-            font-size: 1.1rem;
-            letter-spacing: 0.1em;
-            display: inline-block;
-        }
-
-        .tepra-button:hover {
-            transform: translate(-1px, -1px);
-            box-shadow: 4px 4px 0px #000;
-        }
-
-        .tepra-button:active, .tepra-button.playing {
-            background: #0000cc;
-            transform: translate(2px, 2px);
-            box-shadow: 0px 0px 0px #000;
-        }
-
-        /* 左下：ホームに戻る */
-        .tepra-home {
-            bottom: 35px;
-            left: 35px;
-        }
-
-        /* 右下：ミュージック */
-        .tepra-music {
-            bottom: 35px;
-            right: 35px;
-        }
-
-
-        /* ----------------------------------
-         * 中央：コンテンツ表示エリア
-         * ---------------------------------- */
-        .main-container {
-            max-width: 680px;
-            margin: 0 auto;
-            padding-top: 280px; 
-            padding-bottom: 120px;
-        }
-
-        /* 各ページの初期状態（非表示ルールを修正） */
-        .content-section {
-            background: rgba(255, 255, 255, 0.45);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 50px;
-            margin-bottom: 40px;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.04);
-            display: none; 
-        }
-
-        /* アクティブなページだけを表示 */
-        .content-section.active {
-            display: block !important;
-            animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        h2 {
-            font-family: 'Shippori Mincho', serif;
-            font-weight: 700;
-            font-size: 1.5rem;
-            color: #0d1b2a;
-            border-bottom: 2px solid #0d1b2a;
-            padding-bottom: 10px;
-            margin-top: 0;
-            letter-spacing: 0.15em;
-        }
-
-        p {
-            color: #1c2d3d;
-            line-height: 2.2;
-            font-size: 1rem;
-        }
-
-        ul { list-style: none; padding: 0; }
-        li { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px dashed rgba(13,27,42,0.2); }
-        a { color: #0000ff; text-decoration: none; font-weight: bold; }
-        a:hover { text-decoration: underline; }
-
-        /* フォーム */
-        .form-group { margin-bottom: 25px; }
-        label { font-family: 'Shippori Mincho', serif; font-weight: 700; display: block; margin-bottom: 8px; font-size: 0.85rem; color: #0d1b2a; }
-        input, textarea {
-            width: 100%; padding: 12px; border: 1px solid rgba(13,27,42,0.2); 
-            background: rgba(255,255,255,0.7); font-family: 'Shippori Mincho', serif; box-sizing: border-box;
-        }
-        .submit-btn {
-            background: #0000ff; color: white; border: none; padding: 12px 30px; 
-            font-family: 'Shippori Mincho', serif; font-weight: 700; cursor: pointer; letter-spacing: 0.1em;
-            box-shadow: 3px 3px 0px #000;
-        }
-        .submit-btn:hover { transform: translate(-1px, -1px); box-shadow: 4px 4px 0px #000; }
-    </style>
-</head>
-<body>
-
-    <audio id="bgm" src="bgm.mp3" loop></audio>
-
-    <nav class="ceiling-nav">
-        <div class="nav-item" onclick="switchSection('profile')">
-            <div class="nav-box"><span>自己紹介</span></div>
-        </div>
-        <div class="nav-item" onclick="switchSection('diary')">
-            <div class="nav-box"><span>日記</span></div>
-        </div>
-        <div class="nav-item" onclick="switchSection('miscellany')">
-            <div class="nav-box"><span>雑記帳</span></div>
-        </div>
-    </nav>
-
-    <div class="tepra-button tepra-home" onclick="switchSection('home')">
-        <span>ホームに戻る</span>
-    </div>
-
-    <div class="tepra-button tepra-music" id="musicBtn" onclick="toggleMusic()">
-        <span>ミュージック</span>
-    </div>
-
-    <div class="main-container">
-
-        <section id="home" class="content-section active">
-            <h2>ようこそ</h2>
-            <p>
-                お立ち寄りいただき、ありがとうございます。<br>
-                ここは、眩しく清潔な空港の片隅に設けられた、個人的な記録と記憶のための分室です。<br>
-                天井のタブからそれぞれのページへ、右下のボタンから背景に流れる音の制御が可能です。どうぞご自由にお過ごしください。
-            </p>
-        </section>
-
-        <section id="profile" class="content-section">
-            <h2>自己紹介</h2>
-            <p>
-                ここに簡単な自己紹介を書いてください。現在の所属、関心のあるテーマ、あるいは日々の活動についての短いテキストを置く場所です。
-            </p>
-        </section>
-
-        <section id="diary" class="content-section">
-            <h2>日記</h2>
-            <ul>
-                <li>
-                    <span style="font-size: 0.8rem; color: #556b7d; display: block; font-weight: bold;">2026.06.29</span>
-                    <a href="#">今日の日記（仮）</a>
-                    <p style="margin: 5px 0 0 0; font-size: 0.95rem; color: #2c3e50;">ここへ日記の文章が入ります。</p>
-                </li>
-            </ul>
-        </section>
-
-        <section id="miscellany" class="content-section">
-            <h2>雑記帳</h2>
-            <ul>
-                <li><a href="#">思考の断片についてのノート</a></li>
-                <li><a href="#">いつか整理するかもしれない概念</a></li>
-            </ul>
-        </section>
-
-        <section id="contact" class="content-section">
-            <h2>お問い合わせ</h2>
-            <form action="https://formspree.io/f/xxxxxxxx" method="POST">
-                <div class="form-group">
-                    <label for="name">お名前</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">メールアドレス</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="message">メッセージ</label>
-                    <textarea id="message" name="message" rows="5" required></textarea>
-                </div>
-                <button type="submit" class="submit-btn">送信する</button>
-            </form>
-        </section>
-
-    </div>
-
-    <script>
-        // タブ切り替え用の修正版スクリプト
-        function switchSection(sectionId) {
-            const sections = document.querySelectorAll('.content-section');
-            sections.forEach(sec => {
-                sec.classList.remove('active');
-            });
-            const activeSection = document.getElementById(sectionId);
-            if (activeSection) {
-                activeSection.classList.add('active');
-                window.location.hash = sectionId;
-            }
-        }
-
-        // ミュージックボタン：音のオンオフだけに独立
-        function toggleMusic() {
-            const audio = document.getElementById('bgm');
-            const btn = document.getElementById('musicBtn');
-            
-            if (audio.paused) {
-                audio.play().catch(e => { console.log("Audio blocked."); });
-                btn.classList.add('playing');
-            } else {
-                audio.pause();
-                btn.classList.remove('playing');
-            }
-        }
-        
-        // 読み込み時のハッシュ処理
-        window.addEventListener('DOMContentLoaded', () => {
-            const hash = window.location.hash.replace('#', '');
-            if (hash && document.getElementById(hash)) {
-                switchSection(hash);
-            } else {
-                switchSection('home');
-            }
-        });
-    </script>
-
-</body>
-</html>
+            background: #000
