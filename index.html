@@ -6,7 +6,7 @@
     <title>空港分室</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=DotGothic16&family=Shippori+Mincho:wght@500;700&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
         /* 全体の設定と背景画像 */
@@ -49,252 +49,31 @@
             content: "";
             width: 1px;
             height: 60px; 
-            background: linear-gradient(to bottom, rgba(255,255,255,0.4), rgba(255,255,255,0.8));
+            /* ワイヤーも少し紫と光に馴染むように調整 */
+            background: linear-gradient(to bottom, rgba(255,255,255,0.3), rgba(150,0,255,0.5));
         }
 
-        /* 磨りガラスデザイン */
+        /* 磨りガラスデザイン：彩度の高い紫色トーン */
         .nav-box {
-            background: rgba(255, 255, 255, 0.12); 
-            border: 1px solid rgba(255, 255, 255, 0.4); 
-            border-top: 2px solid rgba(255, 255, 255, 0.6);
+            /* ぼかしテクスチャはそのままに、透明度のある鮮やかな紫に */
+            background: rgba(140, 0, 255, 0.28); 
+            border: 1px solid rgba(200, 100, 255, 0.5); 
+            border-top: 2px solid rgba(220, 150, 255, 0.7);
             backdrop-filter: blur(15px); 
             -webkit-backdrop-filter: blur(15px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 
-                        inset 0 0 10px rgba(255, 255, 255, 0.2);
-            padding: 30px 18px; /* 太い文字に合わせて少し広めに */
+            box-shadow: 0 20px 40px rgba(110, 0, 255, 0.15), 
+                        inset 0 0 15px rgba(255, 255, 255, 0.2);
+            padding: 30px 18px; 
             width: 54px; 
             text-align: center;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* タブ内の日本語：極太でかっこいい看板フォント */
+        /* タブ内の日本語：彩度高めの水色（明朝体） */
         .nav-box span {
             writing-mode: vertical-rl;
             text-combine-upright: digits 2;
-            font-family: 'Dela Gothic One', sans-serif; /* ここを太いフォントに変更 */
+            font-family: 'Shippori Mincho', serif;
+            font-weight: 700;
             font-size: 1.4rem;
-            color: #0d1b2a; 
-            letter-spacing: 0.2em; /* 太いので少しだけ詰めて密度を出す */
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-            line-height: 1;
-        }
-
-        .nav-item:hover .nav-box {
-            background: rgba(255, 255, 255, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            transform: translateY(6px); /* 少し大きく沈み込ませる */
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
-        }
-
-
-        /* ----------------------------------
-         * 右下：New York Times風フォントの「music」ボタン
-         * ---------------------------------- */
-        .tepra-music {
-            position: fixed;
-            bottom: 35px;
-            right: 35px;
-            background: #0000ff; 
-            border: 2px solid #0000ff;
-            box-shadow: 3px 3px 0px #000; 
-            padding: 8px 25px;
-            text-decoration: none;
-            z-index: 100;
-            cursor: pointer;
-            transition: all 0.1s;
-        }
-
-        .tepra-music span {
-            font-family: 'UnifrakturMaguntia', serif;
-            color: #ffffff;
-            font-size: 2.2rem;
-            font-weight: normal;
-            line-height: 1;
-            display: inline-block;
-        }
-
-        .tepra-music:hover {
-            transform: translate(-1px, -1px);
-            box-shadow: 4px 4px 0px #000;
-        }
-
-        .tepra-music.playing {
-            background: #0000cc;
-            transform: translate(2px, 2px);
-            box-shadow: 0px 0px 0px #000;
-        }
-
-
-        /* ----------------------------------
-         * 中央：コンテンツ表示エリア
-         * ---------------------------------- */
-        .main-container {
-            max-width: 680px;
-            margin: 0 auto;
-            padding-top: 280px; 
-            padding-bottom: 120px;
-        }
-
-        section {
-            background: rgba(255, 255, 255, 0.45);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            padding: 50px;
-            margin-bottom: 40px;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.04);
-            display: none; 
-        }
-
-        section:target, section.active {
-            display: block;
-            animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        h2 {
-            font-family: 'Dela Gothic One', sans-serif; /* コンテンツの見出しも太くかっこよく */
-            font-size: 1.6rem;
-            color: #0d1b2a;
-            border-bottom: 2px solid #0d1b2a;
-            padding-bottom: 10px;
-            margin-top: 0;
-            letter-spacing: 0.1em;
-        }
-
-        p {
-            color: #1c2d3d;
-            line-height: 2.2;
-            font-size: 1rem;
-        }
-
-        ul { list-style: none; padding: 0; }
-        li { margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px dashed rgba(13,27,42,0.2); }
-        a { color: #0000ff; text-decoration: none; font-weight: bold; }
-        a:hover { text-decoration: underline; }
-
-        /* フォーム */
-        .form-group { margin-bottom: 25px; }
-        label { font-family: 'Dela Gothic One', sans-serif; display: block; margin-bottom: 8px; font-size: 0.8rem; }
-        input, textarea {
-            width: 100%; padding: 12px; border: 1px solid rgba(13,27,42,0.2); 
-            background: rgba(255,255,255,0.7); font-family: 'Shippori Mincho', serif; box-sizing: border-box;
-        }
-        .submit-btn {
-            background: #0000ff; color: white; border: none; padding: 12px 30px; 
-            font-family: 'DotGothic16', sans-serif; cursor: pointer; letter-spacing: 0.1em;
-            box-shadow: 3px 3px 0px #000;
-        }
-    </style>
-</head>
-<body>
-
-    <audio id="bgm" src="bgm.mp3" loop></audio>
-
-    <nav class="ceiling-nav">
-        <a class="nav-item" href="#profile" onclick="switchSection('profile')">
-            <div class="nav-box"><span>自己紹介</span></div>
-        </a>
-        <a class="nav-item" href="#diary" onclick="switchSection('diary')">
-            <div class="nav-box"><span>日記</span></div>
-        </a>
-        <a class="nav-item" href="#miscellany" onclick="switchSection('miscellany')">
-            <div class="nav-box"><span>雑記帳</span></div>
-        </a>
-    </nav>
-
-    <div class="tepra-music" id="musicBtn" onclick="toggleMusicAndContact()">
-        <span>music</span>
-    </div>
-
-    <div class="main-container">
-
-        <section id="profile" class="active">
-            <h2>自己紹介</h2>
-            <p>
-                ここに簡単な自己紹介を書いてください。現在の所属、関心のあるテーマ、あるいはこの静かな空間についての短いテキストを置く場所です。
-            </p>
-        </section>
-
-        <section id="diary">
-            <h2>日記</h2>
-            <ul>
-                <li>
-                    <span style="font-size: 0.8rem; color: #556b7d; display: block; font-weight: bold;">2026.06.29</span>
-                    <a href="#">今日の日記（仮）</a>
-                    <p style="margin: 5px 0 0 0; font-size: 0.95rem; color: #2c3e50;">ここへ日記の文章が入ります。</p>
-                </li>
-            </ul>
-        </section>
-
-        <section id="miscellany">
-            <h2>雑記帳</h2>
-            <ul>
-                <li><a href="#">思考の断片についてのノート</a></li>
-                <li><a href="#">いつか整理するかもしれない概念</a></li>
-            </ul>
-        </section>
-
-        <section id="contact">
-            <h2>お問い合わせ</h2>
-            <form action="https://formspree.io/f/xxxxxxxx" method="POST">
-                <div class="form-group">
-                    <label for="name">NAME</label>
-                    <input type="text" id="name" name="name" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">E-MAIL</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="message">MESSAGE</label>
-                    <textarea id="message" name="message" rows="5" required></textarea>
-                </div>
-                <button type="submit" class="submit-btn">SEND MESSAGE</button>
-            </form>
-        </section>
-
-    </div>
-
-    <script>
-        function switchSection(sectionId) {
-            const sections = document.querySelectorAll('section');
-            sections.forEach(sec => {
-                sec.classList.remove('active');
-            });
-            const activeSection = document.getElementById(sectionId);
-            if (activeSection) {
-                activeSection.classList.add('active');
-            }
-        }
-
-        function toggleMusicAndContact() {
-            const audio = document.getElementById('bgm');
-            const btn = document.getElementById('musicBtn');
-            
-            switchSection('contact');
-            window.location.hash = 'contact';
-
-            if (audio.paused) {
-                audio.play().catch(e => { console.log("Audio blocked."); });
-                btn.classList.add('playing');
-            } else {
-                audio.pause();
-                btn.classList.remove('playing');
-            }
-        }
-        
-        window.addEventListener('DOMContentLoaded', () => {
-            const hash = window.location.hash.replace('#', '');
-            if (hash) {
-                switchSection(hash);
-            }
-        });
-    </script>
-
-</body>
-</html>
+            /*
