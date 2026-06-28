@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrismCorp Virtual Enterprises 分室</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 全体のスタイル設定（Vaporwaveの静謐な空気感をイメージした配色） */
+        body {
+            font-family: 'Shippori Mincho', serif;
+            background-color: #f0f4f8; /* 眩しく清潔感のある淡いグレーブルー */
+            color: #1a2a3a;
+            margin: 0;
+            padding: 0;
+            line-height: 1.8;
+        }
+
+        header {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(180px, #e1e9f0 0%, #f0f4f8 100%);
+            border-bottom: 1px solid #d0dae5;
+        }
+
+        h1 {
+            font-size: 2rem;
+            letter-spacing: 0.2em;
+            color: #2c3e50;
+            margin: 0;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            letter-spacing: 0.1em;
+            margin-top: 10px;
+        }
+
+        /* コンテンツエリア */
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        section {
+            margin-bottom: 60px;
+            background: rgba(255, 255, 255, 0.7); /* 少し透けるチープで綺麗な白リベース */
+            padding: 30px;
+            border: 1px solid #e3ebf2;
+            border-radius: 2px;
+            box-shadow: 0 4px 20px rgba(210, 220, 230, 0.3);
+        }
+
+        h2 {
+            font-size: 1.3rem;
+            border-bottom: 1px solid #1a2a3a;
+            padding-bottom: 5px;
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: #1a2a3a;
+            letter-spacing: 0.15em;
+        }
+
+        /* リンクやリストの調整 */
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #d0dae5;
+        }
+
+        li:last-child {
+            border-bottom: none;
+        }
+
+        .date {
+            font-size: 0.8rem;
+            color: #95a5a6;
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        a {
+            color: #2980b9;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #3498db;
+        }
+
+        /* 簡易フォーム用スタイル */
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background: #fff;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: #1a2a3a;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-family: inherit;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #34495e;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 0.8rem;
+            color: #bdc3c7;
+            letter-spacing: 0.05em;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>PrismCorp Virtual Enterprises</h1>
+        <div class="subtitle">あなたの未来、私たちの現実</div>
+    </header>
+
+    <div class="container">
+
+        <section id="profile">
+            <h2>自己紹介</h2>
+            <p>
+                ここに簡単な自己紹介を書いてください。現在の所属や、興味のあるテーマ、日々の活動など、あなたについての短いテキストを置く場所です。
+            </p>
+        </section>
+
+        <section id="diary">
+            <h2>日記</h2>
+            <ul>
+                <li>
+                    <span class="date">2026.06.29</span>
+                    <a href="#">今日の日記のタイトル（ダミー）</a>
+                    <p style="margin: 5px 0 0 0; font-size: 0.9rem; color: #555;">ここへ日記の簡単な本文や概要を少し書くことができます。</p>
+                </li>
+                <li>
+                    <span class="date">2026.06.28</span>
+                    <a href="#">昨日の日記のタイトル（ダミー）</a>
+                </li>
+            </ul>
+        </section>
+
+        <section id="miscellany">
+            <h2>雑記帳</h2>
+            <ul>
+                <li><a href="#">思考の断片に関するメモ</a></li>
+                <li><a href="#">いつか形にするかもしれないアイデア</a></li>
+            </ul>
+        </section>
+
+        <section id="contact">
+            <h2>お問い合わせ</h2>
+            <form action="#" method="POST">
+                <div class="form-group">
+                    <label for="name">お名前</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">メールアドレス</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">メッセージ</label>
+                    <textarea id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit">送信</button>
+            </form>
+        </section>
+
+    </div>
+
+    <footer>
+        &copy; PrismCorp Virtual Enterprises. All Rights Reserved.
+    </footer>
+
+</body>
+</html>
