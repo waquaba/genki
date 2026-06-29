@@ -21,7 +21,6 @@
         }
 
         body {
-            /* 【編集】背景画像のファイル名 */
             background-image: url('background.png'); 
             background-size: cover;
             background-position: center center;
@@ -48,7 +47,6 @@
             cursor: pointer;
         }
 
-        /* 吊り下げる糸の長さを1/3（20px）に短縮 */
         .nav-item::before {
             content: "";
             width: 1px;
@@ -116,7 +114,6 @@
 
         .tepra-home { bottom: 35px; left: 35px; }
         
-        /* 💡 修正：ミュージックエリアを元の落ち着く位置（bottom: 35px）へリセット */
         .music-wrapper { 
             position: fixed; 
             bottom: 35px; 
@@ -128,12 +125,11 @@
         }
         
         .tepra-music { position: relative; }
-
         .music-license { font-size: 0.6rem; color: #0d1b2a; margin-top: 6px; opacity: 0; transition: opacity 0.5s ease; white-space: nowrap; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5); }
         .music-wrapper.playing .music-license { opacity: 0.7; }
         .tepra-music.playing { background: #0000cc; transform: translate(2px, 2px); box-shadow: 0px 0px 0px #000; }
 
-        /* 本文の欄を上に伸ばしたレイアウト（top: 225px） */
+        /* 中央コンテンツエリア */
         .main-container {
             position: fixed;
             top: 225px; 
@@ -264,8 +260,7 @@
             <h2>ようこそ</h2>
             <p>
                 お立ち寄りいただき、ありがとうございます。<br>
-                ここは、眩しく清潔な空港の片隅に設けられた、個人的な記録と記憶のための分室です。<br>
-                天井のタブからそれぞれのページへ、右下のボタンから背景に流れる音の制御が可能です。どうぞご自由にお過ごしください。
+                ここは、眩しく清潔な空港の片隅に設けられた、個人的な記録と記憶のための分室です。
             </p>
         </section>
 
@@ -278,8 +273,8 @@
             <div id="diary-list">
                 <h2>日記</h2>
                 <div class="item-list-wrapper">
-                    <div class="clickable-link" onclick="showDetail('diary', '2026.06.29', 'diary-0629')">2026年6月29日：空港のベンチにて</div>
-                    <div class="clickable-link" onclick="showDetail('diary', '2026.06.30', 'diary-0630')">2026年6月30日：明日の予定と音響メモ</div>
+                    <div class="clickable-link" onclick="showDetail('diary', '2026年6月29日', 'diary/0629.html')">2026年6月29日：空港のベンチにて</div>
+                    <div class="clickable-link" onclick="showDetail('diary', '2026年6月30日', 'diary/0630.html')">2026年6月30日：明日の予定と音響メモ</div>
                 </div>
             </div>
 
@@ -295,12 +290,12 @@
                 <h2>雑記帳</h2>
                 <div class="item-list-wrapper">
                     <div class="tree-category">音楽</div>
-                    <div class="clickable-link" onclick="showDetail('miscellany', '対位法の美学', 'music-01')">対位法の美学</div>
-                    <div class="clickable-link" onclick="showDetail('miscellany', '音響合成の記録', 'music-02')">音響合成の記録</div>
+                    <div class="clickable-link" onclick="showDetail('miscellany', '対位法の美学', 'misc/music-01.html')">対位法の美学</div>
+                    <div class="clickable-link" onclick="showDetail('miscellany', '音響合成の記録', 'misc/music-02.html')">音響合成の記録</div>
 
                     <div class="tree-category">数学</div>
-                    <div class="clickable-link" onclick="showDetail('miscellany', '素数についての考察', 'math-01')">素数についての考察</div>
-                    <div class="clickable-link" onclick="showDetail('miscellany', 'リーマン予想の彼方', 'math-02')">リーマン予想の彼方</div>
+                    <div class="clickable-link" onclick="showDetail('miscellany', '素数についての考察', 'misc/math-01.html')">素数についての考察</div>
+                    <div class="clickable-link" onclick="showDetail('miscellany', 'リーマン予想の彼方', 'misc/math-02.html')">リーマン予想の彼方</div>
                 </div>
             </div>
 
@@ -335,23 +330,6 @@
 
     </div>
 
-    <div style="display:none;">
-        <div id="data-diary-0629">
-            今日は一日、この新しく仕上がったホームページの調整をしていた。<br>
-            眩しくて清潔な空港の背景を眺めていると、本当にどこか遠くのターミナルに座っているような奇妙な静けさがある。<br><br>
-            明朝体の文字としっとりした白いすりガラス of 組み合わせは、思った以上にノスタルジックで落ち着く空間になってくれた。これから少しずつ、数学のノートや音楽のアイデアをここに書き溜めていこうと思う。
-        </div>
-        <div id="data-diary-0630">
-            Ableton Liveを開いて、昨日録音した環境音のミキシング作業。<br>
-            ローカットを少し強めに入れて、中高域の透明感を強調するアプローチを試す。このサイトの背景の空気感に合うような、少し冷たくて綺麗なアンビエントトラックを作りたい。<br><br>
-            明日は久しぶりに長文の数学の考察を雑記帳の方にまとめてみる予定。
-        </div>
-        <div id="data-music-01">対位法の美学についての本文。<br>バッハの楽曲に見る数学的構造について…。</div>
-        <div id="data-music-02">音響合成についてのメモです。FM合成の金属的な響きについて。</div>
-        <div id="data-math-01">素数は1とその数自身でしか割り切れない孤独な数字です。</div>
-        <div id="data-math-02">リーマン予想についての考察です。</div>
-    </div>
-
     <script>
         function switchSection(sectionId) {
             const sections = document.querySelectorAll('.content-section');
@@ -365,20 +343,33 @@
             }
         }
 
-        function showDetail(type, title, dataId) {
+        /* 💡 外部のファイルを引っ張ってくる（fetchする）プログラムに組み替えました */
+        function showDetail(type, title, fileUrl) {
             const listArea = document.getElementById(type + '-list');
             const detailArea = document.getElementById(type + '-detail');
             const titleArea = document.getElementById(type + '-title-area');
             const bodyArea = document.getElementById(type + '-body-area');
-            const content = document.getElementById('data-' + dataId).innerHTML;
 
-            titleArea.innerText = title;
-            bodyArea.innerHTML = content;
+            // 非同期でファイルを読み込む
+            fetch(fileUrl)
+                .then(response => {
+                    if (!response.ok) { throw new Error('Network error'); }
+                    return response.text();
+                })
+                .then(htmlContent => {
+                    titleArea.innerText = title;
+                    bodyArea.innerHTML = htmlContent; // 読み込んだ中身をすりガラスにはめ込む
 
-            listArea.style.display = 'none';
-            detailArea.classList.add('active');
-            
-            document.getElementById(type).scrollTop = 0;
+                    listArea.style.display = 'none';
+                    detailArea.classList.add('active');
+                    document.getElementById(type).scrollTop = 0;
+                })
+                .catch(error => {
+                    titleArea.innerText = "読み込みエラー";
+                    bodyArea.innerHTML = "ファイルの取得に失敗しました。パスが正しいか確認してください。";
+                    listArea.style.display = 'none';
+                    detailArea.classList.add('active');
+                });
         }
 
         function hideDetail(type) {
