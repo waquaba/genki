@@ -11,7 +11,7 @@
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/open-authoring/auto-render.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
     
     <style>
         html, body {
@@ -308,9 +308,7 @@
                 <h2>雑記帳</h2>
                 <div class="item-list-wrapper">
                     <div class="tree-category">数学</div>
-                    
                     <div class="clickable-link" onclick="showDetail('miscellany', 'misc/数学/幾何解析/測度距離空間/測度距離空間のモジュライの位相')">測度距離空間のモジュライの位相</div>
-                    
                 </div>
             </div>
 
@@ -358,19 +356,14 @@
             }
         }
 
-        // 🆕 引数をファイルパス（fileUrl）1本に変更し、プログラム内で自動解析させます
         function showDetail(type, fileUrl) {
             const listArea = document.getElementById(type + '-list');
             const detailArea = document.getElementById(type + '-detail');
             const titleArea = document.getElementById(type + '-title-area');
             const bodyArea = document.getElementById(type + '-body-area');
 
-            // 🆕 入力された住所（パス）から、最後のスラッシュ以降の文字列（ファイル名）を抽出するロジック
-            // 例: "misc/数学/幾何解析/測度距離空間/測度距離空間のモジュライの位相" -> "測度距離空間のモジュライの位相"
-            // 例: "diary/2026/0629" -> "0629"（日記の場合はそのまま日付になるように、ドット等に置換可能）
             let extractedTitle = fileUrl.substring(fileUrl.lastIndexOf('/') + 1);
             
-            // 日記の場合は「0629」を「2026.06.29」のように見せかけるプチ整形
             if (type === 'diary' && extractedTitle.length === 4) {
                 extractedTitle = "2026." + extractedTitle.substring(0, 2) + "." + extractedTitle.substring(2);
             }
@@ -381,9 +374,10 @@
                     return response.text();
                 })
                 .then(htmlContent => {
-                    titleArea.innerText = extractedTitle; // 解析したタイトルを投影
+                    titleArea.innerText = extractedTitle; 
                     bodyArea.innerHTML = htmlContent;
 
+                    // 💡 修正箇所：正しい命令で内部の $ や $$ をコンパイル
                     if (window.renderMathInElement) {
                         window.renderMathInElement(bodyArea, {
                             delimiters: [
@@ -400,7 +394,7 @@
                 })
                 .catch(error => {
                     titleArea.innerText = "読み込みエラー";
-                    bodyArea.innerHTML = "ファイルの取得に失敗しました。以下の住所に間違いがないか、GitHub上のファイル位置を確認してください。<br>パス: <strong>" + fileUrl + "</strong>";
+                    bodyArea.innerHTML = "ファイルの取得に失敗しました。以下の住所に間違いがないか確認してください。<br>パス: <strong>" + fileUrl + "</strong>";
                     listArea.style.display = 'none';
                     detailArea.classList.add('active');
                 });
